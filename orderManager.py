@@ -7,194 +7,7 @@ import pprint
 import collections
 from datetime import datetime
 from enum import Enum
-
-## 注文データ種別コード
-class CsvFormat(Enum) :
-    OTHER = 0
-    MINNE = 1
-    CREEMA = 2
-
-    NONE = -1
-
-## 注文状況コード
-class OrderItemStatus(Enum) :
-    NOT_PAYMENT = 0
-    WAITING_FOR_SHIPPING = 1
-    SHIPPED = 2
-    CANCELED = 3
-
-    NONE = -1
-
-## デフォルトオプション
-DEFAULT_OPTIONS = {
-    'PK' : 'G',
-    'PS' : 'G',
-    'HD' : 'G',
-    'TH' : 'G',
-    'WCS' : 'G',
-    'WCP' : 'G',
-    'WCT' : 'G',
-    'WDS' : 'G',
-    'OP' : 'G',
-    'OLA' : 'T',
-    'OTA' : 'T',
-    'KP' : 'G',
-    'SP' : 'G',
-    'KD' : 'G',
-    'FC' : 'G',
-    'JT' : 'GT',
-    'JM' : 'GT',
-    'JF' : 'GF',
-    'PD' : 'G',
-    'PC' : 'G',
-    'VS' : 'GF',
-    'VB' : 'G',
-    'ST' : 'GT',
-    'LB' : 'G',
-    'WT' : 'GF',
-    'CM' : 'GF',
-    'LA' : 'GF',
-    'TA' : 'GF',
-    'PB' : 'G',
-    'SS' : 'G',
-    'WCG' : 'G',
-    'WCA' : 'G',
-    'RTA' : 'G',
-    'N:LB' : 'G40',
-    'N:MG' : 'G40',
-    'N:WT' : 'G40',
-    'R:ST' : '==ERROR==',
-}
-
-CATEGORY_ORDER = [
-    'PK',
-    'PS',
-    'HD',
-    'TH',
-    'WCS',
-    'WCP',
-    'WCT',
-    'WDS',
-    'OP',
-    'OLA',
-    'OTA',
-    'KP',
-    'KD',
-    'SP',
-    'FC',
-    'JT',
-    'JM',
-    'JF',
-    'PD',
-    'PC',
-    'VS',
-    'VB',
-    'ST',
-    'LB',
-    'WT',
-    'CM',
-    'LA',
-    'TA',
-    'PB',
-    'SS',
-    'WCG',
-    'WCA',
-    'RTA',
-    'N:LB',
-    'N:MG',
-    'N:WT',
-    'R:ST',
-]
-
-#CSV_HEADER_MINNE = '注文ID,注文日'
-CSV_HEADER_MINNE = '注文ID,注文日,注文状況,支払方法,入金確認日,発送日,作品名,配送方法,配送エリア,発送までの目安,販売価格,数量,小計,備考,注文の販売価格,注文の送料,注文の合計,注文者のユーザーID,注文者のニックネーム,注文者の氏名,注文者の電話番号,配送先の郵便番号,配送先の住所1,配送先の住所2,配送先の氏名,配送先の電話番号,作品管理番号'
-#CSV_HEADER_CREEMA = '注文ID,購入日'
-CSV_HEADER_CREEMA_0 = '注文ID,購入日,ステータス,支払い日,発送予定日,発送日,作品タイトル,作品単価,オプション1,オプション1価格,オプション2,オプション2価格,作品価格,数量,ギフトラッピング,備考,取引相手,購入回数,配送方法,配送料,作品合計,送料・ラッピング,(-)作家クーポン,合計金額,(-)ポイント・お買い物券利用分,ご注文金額,氏名,郵便番号,住所,TEL,ナビURL,メモ,最終更新日'
-CSV_HEADER_CREEMA_1 = '注文ID,購入日,ステータス,支払い日,発送予定日,発送日,作品タイトル,作品単価,オプション1,オプション1価格,オプション2,オプション2価格,作品価格,数量,ギフトラッピング,備考,取引相手,購入回数,配送方法,配送料,作品合計,送料・ラッピング,(-)作家クーポン,合計金額,(-)お買い物券・ポイント・キャンペーン分,ご注文金額,氏名,郵便番号,住所,TEL,ナビURL,メモ,最終更新日'
-
-## 注文ユーティリティ
-class OrderUtility :
-    ## 注文の項目名からデータ種別を判定
-    @staticmethod
-    def getCsvFormat(aFile) :
-        header = aFile.read().split('\n')[0]
-        if (CSV_HEADER_MINNE in header) :
-            print ('DETECTED : CSV for minne')
-            return CsvFormat.MINNE
-        elif (CSV_HEADER_CREEMA_0 in header or
-              CSV_HEADER_CREEMA_1 in header) :
-            print ('DETECTED : CSV for creema')
-            return CsvFormat.CREEMA
-        else :
-            print ('DETECTED : UNKNOWN')
-            return CsvFormat.OTHER
-
-
-    ## 文字列から注文状況コードを取得
-    @staticmethod
-    def getStatus(aStatus) :
-        orderItemStatus = OrderItemStatus.NONE
-        return orderItemStatus
-
-
-    ## 種別コードからデフォルトコードを取得
-    @staticmethod
-    def getDefaultCode(aCategoryCode) :
-        return aCategoryCode + '-' + DEFAULT_OPTIONS[aCategoryCode]
-
-
-    ## 商品コードから種別コードを取得
-    @staticmethod
-    def getCategoryCode(aProductCode) :
-        i = aProductCode.find('-')
-        if (i == -1) :
-            i = len(aProductCode)
-        return aProductCode[0:i]
-
-
-    ## 文字列から商品コードを取得
-    @staticmethod
-    def getProductCode(aString) :
-        productCode = ''
-        items = re.findall('\[[a-zA-Z0-9\-:]*\]', aString)
-        for item in items :
-            if (productCode != '') :
-                productCode += '-'
-            productCode += item
-
-        ## 数値、B、Wを末尾に移動、商品名にオプションが含まれていない場合は追加
-        otherCode = '';
-        if re.findall('-\[[0-9]*\]', productCode) :
-            m = re.search(r'-\[[0-9]*\]', productCode)
-            otherCode += m.group(0)
-            productCode = re.sub('-\[[0-9]*\]', '', productCode)
-        if '-[B]' in productCode :
-            otherCode += '[-B]'
-            productCode = productCode.replace('-[B]', '')
-        if '-[W]' in productCode :
-            otherCode += '[-W]'
-            productCode = productCode.replace('-[W]', '')
-
-        ## []を除去
-        productCode = productCode.replace('[', '')
-        productCode = productCode.replace(']', '')
-        otherCode = otherCode.replace('[', '')
-        otherCode = otherCode.replace(']', '')
-
-        ## デフォルト値の場合はオプションを削除
-        categoryCode = OrderUtility.getCategoryCode(productCode)
-        defaultCode = OrderUtility.getDefaultCode(categoryCode)
-        print ('defaultCode : ' + defaultCode)
-        if defaultCode in productCode :
-            productCode = productCode.replace(defaultCode, '')
-            if productCode :
-                if productCode[0] != '-' :
-                    productCode = '-' + productCode
-            productCode = categoryCode + productCode
-        productCode += otherCode
-
-        return productCode
-
+from util import Util
 
 ## 注文マネージャー
 class OrderManager :
@@ -207,27 +20,30 @@ class OrderManager :
 
         for filename in aFileList :
             with open(filename, 'r', encoding='utf-8-sig') as filedata:
-                csvDictFormat = OrderUtility.getCsvFormat(filedata)
+                csvDictFormat = CsvUtility.getCsvFormat(filedata)
                 if csvDictFormat == CsvFormat.MINNE :
                     self.addOrdersForMinne(filename)
                 elif csvDictFormat == CsvFormat.CREEMA :
                     self.addOrdersForCreema(filename)
+                elif csvDictFormat == CsvFormat.PRINTING_LABELS :
+                    print('filename : ' + filename)
+                    print('ラベル印刷用のCSV形式です。「' + filename + '」からは注文の追加がされません')
                 else :
                     print('filename : ' + filename)
-                    print('CSV形式が不明のため「' + filename + '」からは注文の追加ができませんでした')
+                    print('未知のCSV形式です。「' + filename + '」からは注文の追加ができませんでした')
                     sys.exit()
 
 
     ## 注文を追加（Minne）
-    def addOrdersForMinne(self, aFilename) :
-        print('CALLED : addOrdersForMinne()')
+    def addOrderWithFileForMinne(self, aFilename) :
+        print('CALLED : addOrderWithFileForMinne()')
         with open(aFilename, 'r', encoding='utf-8-sig') as filedata :
             print ("OPENED : " + aFilename)
             csvDict = csv.DictReader(filedata)
 
             dbg_row = 0
             for row in csvDict :
-                print (row)
+                #print (row)
                 orderIdentifier = row['注文ID']
 
                 ## 注文を追加（既に存在する注文は纏める）
@@ -238,7 +54,7 @@ class OrderManager :
                 else :
                     ## １件目の注文の場合はOrderItemを作成
                     orderItem = OrderItem(orderIdentifier,
-                                          OrderUtility.getStatus(row['注文状況']),
+                                          Util.Order.getStatus(row['注文状況']),
                                           '〒' + row['配送先の郵便番号'],
                                           row['配送先の住所1'] + ' ' +
                                           row['配送先の住所2'],
@@ -247,7 +63,7 @@ class OrderManager :
 
                 ## 商品名から商品コードを抽出してOrderItemに追加
                 print(aFilename + ' : row ' + str(dbg_row))
-                productCode = OrderUtility.getProductCode(row['作品名'])
+                productCode = Util.Order.getProductCode(row['作品名'])
 
                 for i in range(int(row['数量'])) :
                     orderItem.addProduct(productCode)
@@ -257,14 +73,14 @@ class OrderManager :
 
 
     ## 注文を追加（Creema）
-    def addOrdersForCreema(self, aFilename) :
-        print('CALLED : addOrdersForCreema()')
+    def addOrderWithFileForCreema(self, aFilename) :
+        print('CALLED : addOrderWithFileForCreema()')
         with open(aFilename, 'r', encoding='utf-8-sig') as filedata :
             print ("OPENED : " + aFilename)
             csvDict = csv.DictReader(filedata)
             dbg_row = 0
             for row in csvDict :
-                print (row)
+                #print (row)
                 orderIdentifier = row['注文ID']
                 ## 注文を追加（既に存在する注文は纏める）
                 isExist = orderIdentifier in self.orders.keys()
@@ -275,7 +91,7 @@ class OrderManager :
                     ## １件目の注文の場合はOrderItemを作成
                     postalCode = re.sub('[^0-9\-]', '', row['郵便番号'])
                     orderItem = OrderItem(orderIdentifier,
-                                          OrderUtility.getStatus(row['ステータス']),
+                                          Util.Order.getStatus(row['ステータス']),
                                           '〒' + postalCode,
                                           row['住所'],
                                           row['氏名'])
@@ -288,7 +104,7 @@ class OrderManager :
 
                 ## 商品名から商品コードを抽出してOrderItemに追加
                 print(aFilename + ' : row ' + str(dbg_row))
-                productCode = OrderUtility.getProductCode(productString)
+                productCode = Util.Order.getProductCode(productString)
 
                 for i in range(int(row['数量'])) :
                     orderItem.addProduct(productCode)
@@ -302,16 +118,7 @@ class OrderManager :
         print('CALLED : printOrders()')
         orderList = ''
         for order in self.orders.values() :
-#            print ('--------')
-#            print (order.identifier)
-#            print (order.status)
-#            print (order.addressLine0)
-#            print (order.addressLine1)
-#            print (order.customerName)
-#            print (order.products)
-            #orderList += '--------\n'
             orderList += str(order.identifier)
-            #orderList += str(order.status)
             orderList += '\n'
             orderList += str(order.addressLine0)
             orderList += ' '
@@ -321,7 +128,8 @@ class OrderManager :
             orderList += '\n'
             orderList += str(order.products)
             orderList += '\n\n'
-            print (orderList)
+
+        print (orderList)
 
         dateTimeNow = datetime.now()
         fileName = dateTimeNow.strftime('%y%m%d%h%m%s')
@@ -351,24 +159,18 @@ class OrderManager :
         ## 製品名で並び替え
         sortedOrders = sorted(orders.items());
 
-        ## 出力
-        #for order in sortedOrders :
-        #    print ('{} : {}'.format(order[0].ljust(10), str(order[1]).rjust(2)));
-
         ## 製品名ごとに辞書を作成して出力
         categories = {};
         for order in sortedOrders : #sorted(orders.items()) :
-            categoryCode = OrderUtility.getCategoryCode(order[0])
+            categoryCode = Util.Order.getCategoryCode(order[0])
             if (categoryCode not in categories) :
                 categories[categoryCode] = []
             categories[categoryCode].append(order)
 
-        #sortedCategories = sorted(categories.items())
-
         sortedCategories = collections.OrderedDict()
 
         ## 順番に整列
-        codeOrder = CATEGORY_ORDER
+        codeOrder = Util.Order.CATEGORY_ORDER
         for code in codeOrder :
             sortedCategories[code] = {}
             sortedCategories.move_to_end(code)
