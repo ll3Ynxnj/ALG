@@ -8,8 +8,7 @@ from reportlab.lib.units import mm
 
 import os
 import csv
-import time
-import webbrowser
+import sys
 import unicodedata
 
 def get_east_asian_width_count(text):
@@ -22,7 +21,7 @@ def get_east_asian_width_count(text):
     return count
 
 
-class LabelManager() :
+class LabelManager :
     def __init__(self) :
         self.page_size   = (90*mm,29*mm) # 90x29mm
         self.font_family = 'GenShinGothic' # http://jikasei.me/font/genshin/
@@ -44,6 +43,9 @@ class LabelManager() :
         fromAddress  = aLabelItem.fromAddress
 
         # カンバス作成
+        if not len(identifier) :
+            print('ERROR : Identifier is undefined.')
+            sys.exit()
         label_path  = 'Labels/' + identifier + '.pdf'
         context = canvas.Canvas(label_path, landscape(self.page_size))
 
@@ -65,6 +67,8 @@ class LabelManager() :
                            addressLine0)# アドレスが長すぎる場合はフォントサイズを縮小
         font_size_AL1 = font_size_m
         length_AL1 = get_east_asian_width_count(addressLine1)
+        if length_AL1 == 0 :
+            length_AL1 = 1;
         resize_ratio_AL1 = 53.1 / length_AL1
         if resize_ratio_AL1 < 1.0 :
             font_size_AL1 *= resize_ratio_AL1
@@ -93,12 +97,11 @@ class LabelManager() :
 
 
     def addItemWithOrder(self, aOrderItem) :
+        print('CALLED : addItemWithOrder(self, {})'.format(aOrderItem))
         identifier = aOrderItem.identifier
-        print('identifier')
-        print(identifier)
         if identifier == '' :
-            currentDateTime = datetime.now();
-            identifier = 'label'
+            print('ERROR : Identifier is undefined.')
+            sys.exit()
         addressLine0 = aOrderItem.addressLine0
         addressLine1 = aOrderItem.addressLine1
         customerName = aOrderItem.customerName + ' 様'
@@ -114,6 +117,7 @@ class LabelManager() :
                          products,
                          fromAddress)
         self.items.append(item)
+        print('item : {} {}'.format(item.identifier, item.customerName))
 
 
     def addItemWithFile(self, aFilename) :
@@ -122,20 +126,19 @@ class LabelManager() :
             print ("OPENED : " + aFilename)
             csvDict = csv.DictReader(filedata)
 
-            dbg_row = 0
             for row in csvDict :
-                # print (row)
                 item = LabelItem(row['ラベルID'],
-                                 row['都道府県市区町村番地'],
-                                 row['建物名部屋番号等'],
-                                 row['氏名'],
+                                 row['宛先0'],
+                                 row['宛先1'],
+                                 row['宛名'],
                                  row['商品'],
-                                 'Aikiki 〒227-0038神奈川県横浜市青葉区奈良3-14-1-八-908')
+                                 row['差出人'])
                 self.items.append(item)
+                print('item : {} {}'.format(item.identifier, item.customerName))
 
 
 ## ラベル項目
-class LabelItem:
+class LabelItem :
     def __init__(self, aIdentifier,
                  aAddressLine0, aAddressLine1, aCustomerName,
                  aProducts, aFromAddress) :

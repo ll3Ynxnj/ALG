@@ -14,25 +14,6 @@ class OrderManager :
     def __init__(self) :
         self.orders = collections.OrderedDict() # IDをキーとする注文辞書（重複不可）
 
-    ## ファイルリストから注文を初期化
-    def initOrders(self, aFileList) :
-        self.orders.clear
-
-        for filename in aFileList :
-            with open(filename, 'r', encoding='utf-8-sig') as filedata:
-                csvDictFormat = CsvUtility.getCsvFormat(filedata)
-                if csvDictFormat == CsvFormat.MINNE :
-                    self.addOrdersForMinne(filename)
-                elif csvDictFormat == CsvFormat.CREEMA :
-                    self.addOrdersForCreema(filename)
-                elif csvDictFormat == CsvFormat.PRINTING_LABELS :
-                    print('filename : ' + filename)
-                    print('ラベル印刷用のCSV形式です。「' + filename + '」からは注文の追加がされません')
-                else :
-                    print('filename : ' + filename)
-                    print('未知のCSV形式です。「' + filename + '」からは注文の追加ができませんでした')
-                    sys.exit()
-
 
     ## 注文を追加（Minne）
     def addOrderWithFileForMinne(self, aFilename) :
@@ -80,7 +61,6 @@ class OrderManager :
             csvDict = csv.DictReader(filedata)
             dbg_row = 0
             for row in csvDict :
-                #print (row)
                 orderIdentifier = row['注文ID']
                 ## 注文を追加（既に存在する注文は纏める）
                 isExist = orderIdentifier in self.orders.keys()
@@ -109,14 +89,48 @@ class OrderManager :
                 for i in range(int(row['数量'])) :
                     orderItem.addProduct(productCode)
 
-                # print(orderItem.products)
+                ++dbg_row
+
+
+    ## 注文を追加（Manual Input)
+    def addOrderWithFileForManualInput(self, aFilename) :
+        print('CALLED : addOrderWithFileForMinne()')
+        with open(aFilename, 'r', encoding='utf-8') as filedata :
+            print ("OPENED : " + aFilename)
+            csvDict = csv.DictReader(filedata)
+
+            dbg_row = 0
+            for row in csvDict :
+                orderIdentifier = row['注文ID']
+
+                ## 注文を追加（既に存在する注文は纏める）
+                isExist = orderIdentifier in self.orders.keys()
+                if (isExist) :
+                    ## ２件目以降の注文の場合は１件目で作成したオブジェクトを取得
+                    orderItem = self.orders[orderIdentifier]
+                else :
+                    ## １件目の注文の場合はOrderItemを作成
+                    orderItem = OrderItem(orderIdentifier,
+                                          Util.Order.getStatus(''),
+                                          row['住所0'],
+                                          row['住所1'],
+                                          row['氏名'])
+                    self.orders[orderIdentifier] = orderItem
+                    print('orderItem.customerName : {}'.format(orderItem.customerName))
+
+                ## 商品名から商品コードを抽出してOrderItemに追加
+                print(aFilename + ' : row ' + str(dbg_row))
+                productCode = Util.Order.getProductCode(row['商品'])
+
+                orderItem.addProduct(productCode)
+
                 ++dbg_row
 
 
     ## 注文を出力
     def printOrders(self) :
         print('CALLED : printOrders()')
-        orderList = ''
+        orderList = '-LIST-CUSTOMER\n\n'
         for order in self.orders.values() :
             orderList += str(order.identifier)
             orderList += '\n'
@@ -161,7 +175,7 @@ class OrderManager :
 
         ## 製品名ごとに辞書を作成して出力
         categories = {};
-        for order in sortedOrders : #sorted(orders.items()) :
+        for order in sortedOrders :
             categoryCode = Util.Order.getCategoryCode(order[0])
             if (categoryCode not in categories) :
                 categories[categoryCode] = []
@@ -185,7 +199,7 @@ class OrderManager :
             sortedCategories[key][category[0]] = category[1]
 
         ## 一覧を出力
-        productList = ''
+        productList = '-LIST-PRODUCT\n\n'
         totalNumberOfItems = 0;
         for category in sortedCategories.items() :
             productList += '- {} ------------\n'.format(category[0].ljust(3))
