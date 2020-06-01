@@ -1,5 +1,6 @@
 # coding:utf-8
 
+import sys
 import glob
 
 from orderManager import OrderManager
@@ -20,18 +21,19 @@ for filename in fileList :
             orderManager.addOrderWithFileForMinne(filename)
         elif csvDictFormat == Util.Order.Format.CREEMA :
             orderManager.addOrderWithFileForCreema(filename)
+        elif csvDictFormat == Util.Order.Format.MANUAL_INPUT :
+            orderManager.addOrderWithFileForManualInput(filename)
         elif csvDictFormat == Util.Order.Format.PRINTING_LABELS :
-            labelItems.append(labelManager.addItemWithFile(filename))
+            labelManager.addItemWithFile(filename)
         else :
             print('filename : ' + filename)
             print('Unexpected CSV format detected.')
             sys.exit()
 
-# 注意：現状、以下２つのprintに注文フォーマットが「PRINTING_LABELS」の分はprintされないので注意（今後どうするかは未定）
 orderManager.printOrders()
 orderManager.printOrdersByProduct()
 
 for orderItem in orderManager.orders.values() :
-    labelItems.append(labelManager.addItemWithOrder(orderItem))
+    labelManager.addItemWithOrder(orderItem)
 
 labelManager.genLabel();

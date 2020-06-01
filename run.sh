@@ -10,6 +10,9 @@ rm -f ./DataSource/*
 # Input data
 cp /Users/ll3ynxnj/Public/ALGIO/* ./DataSource/
 
+# Generate CSV if convertible text exist
+/Users/ll3ynxnj/.pyenv/shims/python3 genCsvFromText.py
+
 # Generate label data
 /Users/ll3ynxnj/.pyenv/shims/python3 genDataFromCsv.py
 
