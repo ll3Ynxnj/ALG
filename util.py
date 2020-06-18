@@ -271,7 +271,7 @@ class Util :
             dataWidth = 7
             if length % dataWidth != headerWidth :
                 print ('ERROR : Invalid file length.')
-                sys.exit()
+                sys.exit(1)
             now = datetime.now()
             strNow = now.strftime('%Y%m%d-%H%M%S-%f')
             filename = 'order-mi-{:s}'.format(strNow)
@@ -283,7 +283,7 @@ class Util :
                 print ('lines : ' + str(data[dataWidth - 1]))
                 if len(data[dataWidth - 1]) :
                     print ('ERROR : Detected unexpected data.')
-                    sys.exit()
+                    sys.exit(1)
                 identifier = filename + '-{:06d}'.format(i)
                 name = data[0]
                 address0 = data[1]
@@ -320,7 +320,7 @@ class Util :
             dataWidth = 5
             if (length % dataWidth) != headerWidth :
                 print ('ERROR : Invalid file length.')
-                sys.exit()
+                sys.exit(1)
             now = datetime.now()
             strNow = now.strftime('%Y%m%d-%H%M%S-%f')
             filename = 'order-cr-{:s}'.format(strNow)
@@ -331,12 +331,12 @@ class Util :
                 data = lines[head:tail]
                 if len(data[dataWidth - 1]) :
                     print ('ERROR : Detected unexpected data.')
-                    sys.exit()
+                    sys.exit(1)
                 identifier = filename + '-{:06d}'.format(i)
                 postalCode = data[0][0:7]
                 if not postalCode.isdecimal() :
                     print ('ERROR : postalCode : {} : It is not decimal.'.format(postalCode))
-                    sys.exit()
+                    sys.exit(1)
                 name = data[1]
                 address0 = '〒' + postalCode[0:3] + '-' + postalCode[3:]
                 address1 = data[0][7:]
@@ -370,7 +370,7 @@ class Util :
             dataWidth = 8
             if length % dataWidth != headerWidth:
                 print ('ERROR : Invalid file length.')
-                sys.exit()
+                sys.exit(1)
             now = datetime.now()
             strNow = now.strftime('%Y%m%d-%H%M%S-%f')
             filename = 'label-{:s}'.format(strNow)
@@ -382,7 +382,7 @@ class Util :
                 print ('lines : ' + str(data[dataWidth - 1]))
                 if len(data[dataWidth - 1]):
                     print ('ERROR : Detected unexpected data.')
-                    sys.exit()
+                    sys.exit(1)
                 identifier = filename + '-{:06d}'.format(i)
                 address0 = data[0]
                 address1 = data[1]
