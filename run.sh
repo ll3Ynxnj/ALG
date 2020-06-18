@@ -11,10 +11,20 @@ rm -f ./DataSource/*
 cp /Users/ll3ynxnj/Public/ALGIO/* ./DataSource/
 
 # Generate CSV if convertible text exist
-/Users/ll3ynxnj/.pyenv/shims/python3 genCsvFromText.py
+/Users/ll3Ynxnj/.pyenv/shims/python3 genCsvFromText.py
+#echo $?
+#if ! `/Users/ll3Ynxnj/.pyenv/shims/python3 genCsvFromText.py`; then
+#  echo "ERROR : genCsvFromText.py\n"
+#  exit
+#fi
 
 # Generate label data
-/Users/ll3ynxnj/.pyenv/shims/python3 genDataFromCsv.py
+/Users/ll3Ynxnj/.pyenv/shims/python3 genDataFromCsv.py
+#echo $?
+#if ! `/Users/ll3Ynxnj/.pyenv/shims/python3 genDataFromCsv.py`; then
+#  echo "ERROR : genDataFromCsv.py\n"
+#  exit
+#fi
 
 # Print label
 ./printLabels.sh
