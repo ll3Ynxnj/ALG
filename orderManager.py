@@ -202,7 +202,7 @@ class OrderManager :
         productList = '-LIST-PRODUCT\n\n'
         totalNumberOfItems = 0;
         for category in sortedCategories.items() :
-            productList += '- {} ------------\n'.format(category[0].ljust(3))
+            productList += '- {} -----------\n'.format(category[0].ljust(4))
             for orders in sorted(category[1].values()) :
                 for order in orders :
                     productList += '   {} : {}\n'.format(order[0].ljust(10), str(order[1]).rjust(2))

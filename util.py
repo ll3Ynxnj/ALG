@@ -45,6 +45,7 @@ class Util :
             'N:MG' : 'G40',
             'N:WT' : 'G40',
             'R:ST' : '==ERROR==',
+            '00' : '0',
         }
 
 
@@ -86,6 +87,7 @@ class Util :
             'N:MG',
             'N:WT',
             'R:ST',
+            '00',
         ]
 
 
