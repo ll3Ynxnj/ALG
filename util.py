@@ -190,6 +190,7 @@ class Util :
 
         HEADER_PRINTING_LABELS = 'ラベルID,宛先0,宛先1,宛名,商品,差出人,メモ'
 
+
         ## 注文の項目名からデータ種別を判定
         @staticmethod
         # TODO Rename to 'getFormat'
@@ -212,6 +213,7 @@ class Util :
             else :
                 print ('DETECTED : UNKNOWN')
                 return Util.Order.Format.OTHER
+
 
     ##
     class Text :
@@ -258,15 +260,11 @@ class Util :
 
 
         @staticmethod
-        def getCsvBodyWithFile(aFile) :
-            return csvBody
-
-
-        @staticmethod
         def genCsvWithFileForMinne(aFile) :
             print('CALLED : genCsvWithFileForMinne()')
             aFile.seek(0, 0)
-            lines = aFile.read().split('\n')
+            text = aFile.read().rstrip() + '\n'
+            lines = text.split('\n')
             length = len(lines)
             csv = Util.Csv.HEADER_MANUAL_INPUT + '\n'
             headerWidth = 2
@@ -313,7 +311,8 @@ class Util :
         def genCsvWithFileForCreema(aFile) :
             print('CALLED : genCsvWithFileForMinne()')
             aFile.seek(0, 0)
-            lines = aFile.read().split('\n')
+            text = aFile.read().rstrip() + '\n'
+            lines = text.split('\n')
             length = len(lines)
             print('length : ' + str(length))
             print(lines)
@@ -362,10 +361,12 @@ class Util :
                 print(csv, file = f)
 
 
+        @staticmethod
         def genCsvWithFileForLabel(aFile):
             print('CALLED : genCsvWithFileForLabel()')
             aFile.seek(0, 0)
-            lines = aFile.read().split('\n')
+            text = aFile.read().rstrip() + '\n'
+            lines = text.split('\n')
             length = len(lines)
             csv = Util.Csv.HEADER_PRINTING_LABELS + '\n'
             headerWidth = 2
