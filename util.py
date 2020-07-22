@@ -36,11 +36,13 @@ class Util :
             'CM' : 'GF',
             'LA' : 'GF',
             'TA' : 'GF',
+            'OT3' : 'GS',
             'PB' : 'G',
             'SS' : 'G',
             'WCG' : 'G',
             'WCA' : 'G',
             'RTA' : 'G',
+            'N:OPA': 'G40',
             'N:LB' : 'G40',
             'N:MG' : 'G40',
             'N:WT' : 'G40',
@@ -78,11 +80,13 @@ class Util :
             'CM',
             'LA',
             'TA',
+            'OT3',
             'PB',
             'SS',
             'WCG',
             'WCA',
             'RTA',
+            'N:OPA',
             'N:LB',
             'N:MG',
             'N:WT',
@@ -266,6 +270,8 @@ class Util :
             text = aFile.read().rstrip() + '\n'
             lines = text.split('\n')
             length = len(lines)
+            print('length : ' + str(length))
+            print(lines)
             csv = Util.Csv.HEADER_MANUAL_INPUT + '\n'
             headerWidth = 2
             dataWidth = 7
