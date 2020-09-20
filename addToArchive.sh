@@ -5,7 +5,9 @@ mkdir ${DIR_PATH}
 cp -r Labels ${DIR_PATH}
 cp -r OrderLists ${DIR_PATH}
 cp -r DataSource ${DIR_PATH}
-cp -r ${DIR_PATH} /Users/ll3Ynxnj/Public/ALGArchives/
+cp -r ${DIR_PATH} /home/samba/ALGArchives/
 rm Labels/*
 rm OrderLists/*
 rm DataSource/*
+
+echo "== COMPLETED : addToArchive.sh =="
