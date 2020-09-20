@@ -25,7 +25,7 @@ class LabelManager :
     def __init__(self) :
         self.page_size   = (90*mm,29*mm) # 90x29mm
         self.font_family = 'GenShinGothic' # http://jikasei.me/font/genshin/
-        self.font_path   = './fonts/GenShinGothic-Monospace-Medium.ttf'
+        self.font_path   = './Fonts/GenShinGothic-Monospace-Medium.ttf'
         self.items       = list()
 
 
