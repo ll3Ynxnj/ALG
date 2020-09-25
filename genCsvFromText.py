@@ -1,4 +1,5 @@
 # coding:utf-8
+# genCsvFromText.py
 
 import sys
 import glob
@@ -7,7 +8,7 @@ from util import Util
 dataSource = './DataSource/*.txt'
 print('-- Processing files ------------------------------------------------------------')
 print(glob.glob(dataSource))
-fileList = glob.glob(dataSource);
+fileList = glob.glob(dataSource)
 for filename in fileList :
     with open(filename, 'r', encoding='utf-8') as filedata:
         print('Processing : ' + filename)
@@ -24,4 +25,5 @@ for filename in fileList :
             continue
         else :
             print('ERROR : Unexpected Text format detected.')
-            sys.exit()
+            sys.exit(1)
+

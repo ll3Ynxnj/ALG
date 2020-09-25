@@ -11,11 +11,12 @@ from util import Util
 dataSource = './DataSource/*.csv'
 print(glob.glob(dataSource))
 orderManager = OrderManager()
-labelManager = LabelManager();
+labelManager = LabelManager()
 labelItems = list();
-fileList = glob.glob(dataSource);
+fileList = glob.glob(dataSource)
 for filename in fileList :
     with open(filename, 'r', encoding='utf-8-sig') as filedata:
+        print('Processing : ' + filename)
         csvDictFormat = Util.Csv.getCsvFormat(filedata)
         if csvDictFormat == Util.Order.Format.MINNE :
             orderManager.addOrderWithFileForMinne(filename)
@@ -26,9 +27,8 @@ for filename in fileList :
         elif csvDictFormat == Util.Order.Format.PRINTING_LABELS :
             labelManager.addItemWithFile(filename)
         else :
-            print('filename : ' + filename)
             print('Unexpected CSV format detected.')
-            sys.exit()
+            sys.exit(1)
 
 orderManager.printOrders()
 orderManager.printOrdersByProduct()
@@ -36,4 +36,5 @@ orderManager.printOrdersByProduct()
 for orderItem in orderManager.orders.values() :
     labelManager.addItemWithOrder(orderItem)
 
-labelManager.genLabel();
+labelManager.genLabel()
+
