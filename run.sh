@@ -2,13 +2,17 @@
 
 export LC_CTYPE=ja_JP.UTF-8
 
-cd /usr/local/bin/alg/
+# Setup directory
+cd /usr/local/bin/alg_TEST
+
+# Load configuration
+. ./alg.conf
 
 # Clean data
 rm -f ./DataSource/*
 
 # Input data
-cp /home/samba/ALGIO/* ./DataSource/
+cp ${ALG_PATH_TO_IO}/* ./DataSource/
 
 # Generate CSV if convertible text exist
 python3 genCsvFromText.py
@@ -16,11 +20,28 @@ python3 genCsvFromText.py
 # Generate label data
 python3 genDataFromCsv.py
 
+# Setup printer
+lpoptions -p Brother_QL_720NW -o PageSize=29x90mm
+lpoptions -p Brother_QL_720NW -o cupsPrintQuality=Normal
+
+# Display print environment
+cat /etc/redhat-release
+lpstat -s
+lpoptions -p Brother_QL_720NW -l
+
 # Print label
-./printLabels.sh
+lpr -o landscape -P Brother_QL_720NW Labels/*.pdf
 
 # Output data
-cp ./OrderLists/* /home/samba/ALGIO/
+cp ./OrderLists/* ${ALG_PATH_TO_IO}
 
 # Archive data
-./addToArchive.sh
+mkdir ${ALG_PATH_TO_ARCHIVE_LOCAL}
+cp -r Labels ${ALG_PATH_TO_ARCHIVE_LOCAL}
+cp -r OrderLists ${ALG_PATH_TO_ARCHIVE_LOCAL}
+cp -r DataSource ${ALG_PATH_TO_ARCHIVE_LOCAL}
+cp -r ${ALG_PATH_TO_ARCHIVE_LOCAL} ${ALG_PATH_TO_ARCHIVE}
+rm Labels/*
+rm OrderLists/*
+rm DataSource/*
+
