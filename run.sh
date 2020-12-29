@@ -3,7 +3,7 @@
 export LC_CTYPE=ja_JP.UTF-8
 
 # Setup directory
-cd /usr/local/bin/alg_TEST
+cd /usr/local/bin/alg
 
 # Load configuration
 . ./alg.conf
@@ -21,16 +21,16 @@ python3 genCsvFromText.py
 python3 genDataFromCsv.py
 
 # Setup printer
-lpoptions -p Brother_QL_720NW -o PageSize=29x90mm
-lpoptions -p Brother_QL_720NW -o cupsPrintQuality=Normal
+lpoptions -p Brother_QL-720NW -o PageSize=29x90mm
+lpoptions -p Brother_QL-720NW -o cupsPrintQuality=Normal
 
 # Display print environment
 cat /etc/redhat-release
 lpstat -s
-lpoptions -p Brother_QL_720NW -l
+lpoptions -p Brother_QL-720NW -l
 
 # Print label
-lpr -o landscape -P Brother_QL_720NW Labels/*.pdf
+lpr -o landscape -P Brother_QL-720NW Labels/*.pdf
 
 # Output data
 cp ./OrderLists/* ${ALG_PATH_TO_IO}
