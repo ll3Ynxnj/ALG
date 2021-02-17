@@ -30,7 +30,7 @@ lpstat -s
 lpoptions -p Brother_QL-720NW -l
 
 # Print label
-lpr -o landscape -P Brother_QL-720NW Labels/*.pdf
+ls Labels/*.pdf | xargs lpr -o landscape -P Brother_QL-720NW
 
 # Output data
 cp ./OrderLists/* ${ALG_PATH_TO_IO}
