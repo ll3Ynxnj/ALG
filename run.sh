@@ -3,7 +3,7 @@
 export LC_CTYPE=ja_JP.UTF-8
 
 # Setup directory
-cd /usr/local/bin/alg
+cd /usr/local/bin/alg_TEST
 
 # Load configuration
 . ./alg.conf
@@ -13,6 +13,9 @@ rm -f ./DataSource/*
 
 # Input data
 cp ${ALG_PATH_TO_IO}/* ./DataSource/
+
+# Convert to UTF-8
+nkf --overwrite -w ./DataSource/*
 
 # Generate CSV if convertible text exist
 python3 genCsvFromText.py

@@ -92,6 +92,46 @@ class OrderManager :
                 ++dbg_row
 
 
+    ## 注文を追加（BASE）
+    def addOrderWithFileForBase(self, aFilename) :
+        print('CALLED : addOrderWithFileForBase()')
+        with open(aFilename, 'r', encoding='utf-8-sig') as filedata :
+            print ("OPENED : " + aFilename)
+            csvDict = csv.DictReader(filedata)
+            dbg_row = 0
+            for row in csvDict :
+                orderIdentifier = row['注文ID']
+                ## 注文を追加（既に存在する注文は纏める）
+                isExist = orderIdentifier in self.orders.keys()
+                if (isExist) :
+                    ## ２件目以降の注文の場合は１件目で作成したオブジェクトを取得
+                    orderItem = self.orders[orderIdentifier]
+                else :
+                    ## １件目の注文の場合はOrderItemを作成
+                    postalCode = re.sub('[^0-9\-]', '', row['郵便番号(配送先)'])
+                    orderItem = OrderItem(orderIdentifier,
+                                          Util.Order.getStatus(row['発送状況']),
+                                          '〒' + postalCode,
+                                          row['都道府県(配送先)'] + row['住所(配送先)'] + row['住所2(配送先)'],
+row['氏(配送先)'] + ' ' + row['名(配送先)'])
+                    self.orders[orderIdentifier] = orderItem
+
+                productString = row['商品名'] + row['バリエーション']
+                ## BASEのギフトラッピングはコードを振れないので「あり」の文字列を探して存在すれば追加
+                if 'あり' in row['バリエーション'] and '商品オプション「ギフトラッピング」' in row['商品名']:
+                    productString += '[00]-[W]'
+
+                ## 商品名から商品コードを抽出してOrderItemに追加
+                print(aFilename + ' : row ' + str(dbg_row))
+                productCode = Util.Order.getProductCode(productString)
+
+                for i in range(int(row['数量'])) :
+                    orderItem.addProduct(productCode)
+
+                ++dbg_row
+
+
+
     ## 注文を追加（Manual Input)
     def addOrderWithFileForManualInput(self, aFilename) :
         print('CALLED : addOrderWithFileForMinne()')
