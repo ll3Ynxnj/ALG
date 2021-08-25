@@ -22,6 +22,8 @@ for filename in fileList :
             orderManager.addOrderWithFileForMinne(filename)
         elif csvDictFormat == Util.Order.Format.CREEMA :
             orderManager.addOrderWithFileForCreema(filename)
+        elif csvDictFormat == Util.Order.Format.BASE :
+            orderManager.addOrderWithFileForBase(filename)
         elif csvDictFormat == Util.Order.Format.MANUAL_INPUT :
             orderManager.addOrderWithFileForManualInput(filename)
         elif csvDictFormat == Util.Order.Format.PRINTING_LABELS :

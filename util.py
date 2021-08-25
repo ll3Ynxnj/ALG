@@ -140,6 +140,7 @@ class Util :
             OTHER = 0
             MINNE = 1
             CREEMA = 2
+            BASE = 3
             MANUAL_INPUT = 64
             PRINTING_LABELS = 256 
 
@@ -230,6 +231,7 @@ class Util :
         #CSV_HEADER_CREEMA = '注文ID,購入日'
         HEADER_CREEMA_0 = '注文ID,購入日,ステータス,支払い日,発送予定日,発送日,作品タイトル,作品単価,オプション1,オプション1価格,オプション2,オプション2価格,作品価格,数量,ギフトラッピング,備考,取引相手,購入回数,配送方法,配送料,作品合計,送料・ラッピング,(-)作家クーポン,合計金額,(-)ポイント・お買い物券利用分,ご注文金額,氏名,郵便番号,住所,TEL,ナビURL,メモ,最終更新日'
         HEADER_CREEMA_1 = '注文ID,購入日,ステータス,支払い日,発送予定日,発送日,作品タイトル,作品単価,オプション1,オプション1価格,オプション2,オプション2価格,作品価格,数量,ギフトラッピング,備考,取引相手,購入回数,配送方法,配送料,作品合計,送料・ラッピング,(-)作家クーポン,合計金額,(-)お買い物券・ポイント・キャンペーン分,ご注文金額,氏名,郵便番号,住所,TEL,ナビURL,メモ,最終更新日'
+        HEADER_BASE = '注文ID,注文日時,氏(請求先),名(請求先),郵便番号(請求先),都道府県(請求先),住所(請求先),住所2(請求先),電話番号(請求先),メールアドレス(請求先),氏(配送先),名(配送先),郵便番号(配送先),都道府県(配送先),住所(配送先),住所2(配送先),電話番号(配送先),備考,商品名,バリエーション,価格,税率,数量,合計金額,送料,支払い方法,代引き手数料,発送状況,商品ID,種類ID,購入元,配送日,配送時間帯,注文メモ,調整金額'
         HEADER_MANUAL_INPUT = '注文ID,住所0,住所1,氏名,電話番号,商品,メモ'
 
         HEADER_PRINTING_LABELS = 'ラベルID,宛先0,宛先1,宛名,商品,差出人,メモ'
@@ -246,8 +248,11 @@ class Util :
                 return Util.Order.Format.MINNE
             elif (Util.Csv.HEADER_CREEMA_0 in header or
                   Util.Csv.HEADER_CREEMA_1 in header) :
-                print ('DETECTED : CSV for creema')
+                print ('DETECTED : CSV for Creema')
                 return Util.Order.Format.CREEMA
+            elif (Util.Csv.HEADER_BASE in header) :
+                print ('DETECTED : CSV for BASE')
+                return Util.Order.Format.BASE
             elif (header == Util.Csv.HEADER_MANUAL_INPUT) :
                 print ('DETECTED : CSV for manual input')
                 return Util.Order.Format.MANUAL_INPUT
@@ -265,6 +270,7 @@ class Util :
             OTHER = 0
             ORDER_MINNE = 1
             ORDER_CREEMA = 2
+            ORDER_BASE = 3
             LABEL = 100
             LIST_CUSTOMER = 301
             LIST_PRODUCT = 302
@@ -273,6 +279,7 @@ class Util :
 
         HEADER_ORDER_MINNE = '-ORDER-M\n'
         HEADER_ORDER_CREEMA = '-ORDER-C\n'
+        HEADER_ORDER_BASE = '-ORDER-B\n'
         HEADER_LABEL = '-LABEL\n'
         HEADER_LIST_CUSTOMER = '-LIST-CUSTOMER\n'
         HEADER_LIST_PRODUCT = '-LIST-PRODUCT\n'
@@ -287,8 +294,11 @@ class Util :
                 print ('DETECTED : Text with orders for minne')
                 return Util.Text.Format.ORDER_MINNE
             elif (Util.Text.HEADER_ORDER_CREEMA == header) :
-                print ('DETECTED : Text with orders for creema')
+                print ('DETECTED : Text with orders for Creema')
                 return Util.Text.Format.ORDER_CREEMA
+            elif (Util.Text.HEADER_ORDER_BASE== header) :
+                print ('DETECTED : Text with orders for BASE')
+                return Util.Text.Format.ORDER_BASE
             elif (Util.Text.HEADER_LABEL == header) :
                 print ('DETECTED : Text for label printing')
                 return Util.Text.Format.LABEL
@@ -355,7 +365,7 @@ class Util :
 
         @staticmethod
         def genCsvWithFileForCreema(aFile) :
-            print('CALLED : genCsvWithFileForMinne()')
+            print('CALLED : genCsvWithFileForCreema()')
             aFile.seek(0, 0)
             text = aFile.read().rstrip() + '\n'
             lines = text.split('\n')
