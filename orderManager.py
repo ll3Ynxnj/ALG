@@ -16,7 +16,7 @@ class OrderManager :
 
 
     ## 注文を追加（Minne）
-    def addOrderWithFileForMinne(self, aFilename) :
+    def addOrderWithFileForMinne(self, aFilename, aItemStatus) :
         print('CALLED : addOrderWithFileForMinne()')
         with open(aFilename, 'r', encoding='utf-8-sig') as filedata :
             print ("OPENED : " + aFilename)
@@ -25,6 +25,17 @@ class OrderManager :
             dbg_row = 0
             for row in csvDict :
                 #print (row)
+                colOrderStatus = row['注文状況']
+                print ("STATUS : " + colOrderStatus)
+                if   aItemStatus == Util.Order.ItemStatus.WAITING_FOR_SHIPPING :
+                    if colOrderStatus != '発送準備中' :
+                        print ('minne 除外 (' + colOrderStatus + ')')
+                        continue
+                elif aItemStatus == Util.Order.ItemStatus.SHIPPED :
+                    if colOrderStatus != '発送完了' :
+                        print ('minne 除外 (' + colOrderStatus + ')')
+                        continue
+
                 orderIdentifier = row['注文ID']
 
                 ## 注文を追加（既に存在する注文は纏める）
@@ -54,13 +65,26 @@ class OrderManager :
 
 
     ## 注文を追加（Creema）
-    def addOrderWithFileForCreema(self, aFilename) :
+    def addOrderWithFileForCreema(self, aFilename, aItemStatus) :
         print('CALLED : addOrderWithFileForCreema()')
         with open(aFilename, 'r', encoding='utf-8-sig') as filedata :
             print ("OPENED : " + aFilename)
             csvDict = csv.DictReader(filedata)
+
             dbg_row = 0
             for row in csvDict :
+                #print (row)
+                colOrderStatus = row['ステータス']
+                print ("STATUS : " + colOrderStatus)
+                if   aItemStatus == Util.Order.ItemStatus.WAITING_FOR_SHIPPING :
+                    if colOrderStatus != '発送準備' :
+                        print ('Creema 除外 (' + colOrderStatus + ')')
+                        continue
+                elif aItemStatus == Util.Order.ItemStatus.SHIPPED :
+                    if colOrderStatus != '発送完了' :
+                        print ('Creema 除外 (' + colOrderStatus + ')')
+                        continue
+
                 orderIdentifier = row['注文ID']
                 ## 注文を追加（既に存在する注文は纏める）
                 isExist = orderIdentifier in self.orders.keys()
@@ -93,13 +117,25 @@ class OrderManager :
 
 
     ## 注文を追加（BASE）
-    def addOrderWithFileForBase(self, aFilename) :
+    def addOrderWithFileForBase(self, aFilename, aItemStatus) :
         print('CALLED : addOrderWithFileForBase()')
         with open(aFilename, 'r', encoding='utf-8-sig') as filedata :
             print ("OPENED : " + aFilename)
             csvDict = csv.DictReader(filedata)
             dbg_row = 0
             for row in csvDict :
+                # print(row)
+                colOrderStatus = row['発送状況']
+                print ("STATUS : " + colOrderStatus)
+                if   aItemStatus == Util.Order.ItemStatus.WAITING_FOR_SHIPPING :
+                    if colOrderStatus != '未発送' :
+                        print ('BASE 除外 (' + colOrderStatus + ')')
+                        continue
+                elif aItemStatus == Util.Order.ItemStatus.SHIPPED :
+                    if colOrderStatus != '発送済み' :
+                        print ('BASE 除外 (' + colOrderStatus + ')')
+                        continue
+
                 orderIdentifier = row['注文ID']
                 ## 注文を追加（既に存在する注文は纏める）
                 isExist = orderIdentifier in self.orders.keys()
