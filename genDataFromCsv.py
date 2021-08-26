@@ -8,6 +8,16 @@ from labelManager import LabelManager
 from labelManager import LabelItem
 from util import Util
 
+aStatus = sys.argv[1]
+itemStatus = Util.Order.ItemStatus.NONE
+
+print (sys.argv)
+print ("STATUS: " + aStatus)
+if aStatus == 'w':
+    itemStatus = Util.Order.ItemStatus.WAITING_FOR_SHIPPING
+elif aStatus == 's':
+    itemStatus = Util.Order.ItemStatus.SHIPPED
+
 dataSource = './DataSource/*.csv'
 print(glob.glob(dataSource))
 orderManager = OrderManager()
@@ -19,11 +29,11 @@ for filename in fileList :
         print('Processing : ' + filename)
         csvDictFormat = Util.Csv.getCsvFormat(filedata)
         if csvDictFormat == Util.Order.Format.MINNE :
-            orderManager.addOrderWithFileForMinne(filename)
+            orderManager.addOrderWithFileForMinne(filename, itemStatus)
         elif csvDictFormat == Util.Order.Format.CREEMA :
-            orderManager.addOrderWithFileForCreema(filename)
+            orderManager.addOrderWithFileForCreema(filename, itemStatus)
         elif csvDictFormat == Util.Order.Format.BASE :
-            orderManager.addOrderWithFileForBase(filename)
+            orderManager.addOrderWithFileForBase(filename, itemStatus)
         elif csvDictFormat == Util.Order.Format.MANUAL_INPUT :
             orderManager.addOrderWithFileForManualInput(filename)
         elif csvDictFormat == Util.Order.Format.PRINTING_LABELS :
