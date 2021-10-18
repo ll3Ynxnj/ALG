@@ -28,7 +28,6 @@ class Util :
             'OTA' : 'T',
             'SM' : 'GT',#旧JM
             'ST4' : 'GT',#旧JT
-            'DZT' : 'G',
             'KP' : 'G',
             'SP' : 'G',
             'SPDI' : 'G',
@@ -44,9 +43,11 @@ class Util :
             'LQ' : 'GH',
             'WT' : 'GH',
             'FWT' : 'GH',
+            'FSQ' : 'GH',
             'HFWT' : 'GH',
             'DZA' : 'G',#旧JA
             'DZS' : 'G',#旧JS
+            'DZT' : 'G',
             'CM' : 'GH',
             'FLA' : 'GH',
             'FTA' : 'GH',
@@ -94,8 +95,7 @@ class Util :
             'OLA',
             'OTA',
             'SM',   # Swarovski #'JM',
-            'ST4',  # Swarovski 淡水パール 4連 #'JT',
-            'DZT',
+            'ST4',  # Swarovski 淡水パール(T) 4連 #'JT',
             'KP',
             'KD',
             'SP',
@@ -106,14 +106,16 @@ class Util :
             'PC',
             'VS',
             'VB',
-            'ST',   # Swarovski T(淡水パール)
+            'ST',   # Swarovski 淡水パール(T)
             'LB',
             'LQ',
             'WT',
             'FWT',
+            'FSQ',  # Framed Smoky Quartz
             'HFWT',
-            'DZA',  # Drop Zirconia #'JA',
-            'DZS',  # Drop Zirconia #'JS',
+            'DZA',  # Drop Zirconia Amazonite #'JA',
+            'DZS',  # Drop Zirconia Swarovski #'JS',
+            'DZT',  # Drop Zirconia 淡水パール(T)
             'CM',
             'FLA',
             'FTA',
