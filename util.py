@@ -26,14 +26,15 @@ class Util :
             'OT3' : 'GS',
             'OLA' : 'T',
             'OTA' : 'T',
-            'SM' : 'GT',#旧JM
-            'ST4' : 'GT',#旧JT
+            'OZF' : 'G',    # One Zirconia Flower
+            'SM' : 'GT',    #旧JM
+            'ST4' : 'GT',   #旧JT
             'KP' : 'G',
             'SP' : 'G',
             'SPDI' : 'G',
             'KD' : 'G',
             'FC' : 'G',
-            'ZF' : 'GH',#旧JF
+            'ZF' : 'GH',    #旧JF
             'PD' : 'G',
             'PC' : 'G',
             'VS' : 'GH',
@@ -45,8 +46,8 @@ class Util :
             'FWT' : 'GH',
             'FSQ' : 'GH',
             'HFWT' : 'GH',
-            'DZA' : 'G',#旧JA
-            'DZS' : 'G',#旧JS
+            'DZA' : 'G',    #旧JA
+            'DZS' : 'G',    #旧JS
             'DZT' : 'G',
             'CM' : 'GH',
             'FLA' : 'GH',
@@ -65,7 +66,7 @@ class Util :
             'GA4' : 'G',
             'RTA' : 'G',
             'N:FOP': 'G40',
-            'N:ZF': 'G40',#旧N:FJF
+            'N:ZF': 'G40',  #旧N:FJF
             'N:FWT': 'G40',
             'N:LB' : 'G40',
             'N:MG' : 'G40',
@@ -94,6 +95,7 @@ class Util :
             'OT3',
             'OLA',
             'OTA',
+            'OZF',  # One Zirconia Flower
             'SM',   # Swarovski #'JM',
             'ST4',  # Swarovski 淡水パール(T) 4連 #'JT',
             'KP',
