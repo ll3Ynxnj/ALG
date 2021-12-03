@@ -60,6 +60,7 @@ class Util :
             'SCP' : 'G',
             'SK3' : 'G',
             'OST' : 'G',
+            'OD' : 'S',
             'ST3' : 'S',
             'WCG' : 'G',
             'WCA' : 'G',
@@ -130,6 +131,7 @@ class Util :
             'SCP',
             'SK3',
             'OST',
+            'OD',  # One Designe (<-?)
             'WCG',
             'WCA',
             'GA4',
