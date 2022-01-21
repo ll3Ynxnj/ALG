@@ -31,6 +31,7 @@ class Util :
             'ST4' : 'GT',   #旧JT
             'KP' : 'G',
             'SP' : 'G',
+	    'SS' : 'G',
             'SPDI' : 'G',
             'KD' : 'G',
             'FC' : 'G',
@@ -102,6 +103,7 @@ class Util :
             'KP',
             'KD',
             'SP',
+            'SS',   # Swarovski Swarovski
             'SPDI',
             'FC',
             'ZF',   # Zirconia Flower #'JF',
