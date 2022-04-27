@@ -74,6 +74,8 @@ class Util :
             'N:MG' : 'G40',
             'N:WT' : 'G40',
             'R:ST' : '==ERROR==',
+            'R:GO' : '==ERROR==',
+            'R:ZR2' : '==ERROR==',
             '00' : '0',
         }
 
@@ -145,6 +147,8 @@ class Util :
             'N:MG',
             'N:WT',
             'R:ST',
+            'R:GO', # Green Onikis
+            'R:ZR2', # Zirconia Round 2mm
             '00',
         ]
 
@@ -245,6 +249,7 @@ class Util :
         #CSV_HEADER_CREEMA = '注文ID,購入日'
         HEADER_CREEMA_0 = '注文ID,購入日,ステータス,支払い日,発送予定日,発送日,作品タイトル,作品単価,オプション1,オプション1価格,オプション2,オプション2価格,作品価格,数量,ギフトラッピング,備考,取引相手,購入回数,配送方法,配送料,作品合計,送料・ラッピング,(-)作家クーポン,合計金額,(-)ポイント・お買い物券利用分,ご注文金額,氏名,郵便番号,住所,TEL,ナビURL,メモ,最終更新日'
         HEADER_CREEMA_1 = '注文ID,購入日,ステータス,支払い日,発送予定日,発送日,作品タイトル,作品単価,オプション1,オプション1価格,オプション2,オプション2価格,作品価格,数量,ギフトラッピング,備考,取引相手,購入回数,配送方法,配送料,作品合計,送料・ラッピング,(-)作家クーポン,合計金額,(-)お買い物券・ポイント・キャンペーン分,ご注文金額,氏名,郵便番号,住所,TEL,ナビURL,メモ,最終更新日'
+        HEADER_CREEMA_2 = '注文ID,購入日,ステータス,支払い日,発送予定日,発送日,作品タイトル,種類,作品単価,オプション1,オプション1価格,オプション2,オプション2価格,オプション3,オプション3価格,オプション4,オプション4価格,オプション5,オプション5価格,作品価格,数量,ギフトラッピング,備考,取引相手,購入回数,配送方法,配送料,作品合計,送料・ラッピング,(-)作家クーポン,合計金額,(-)お買い物券・ポイント・キャンペーン分,ご注文金額,氏名,郵便番号,住所,TEL,ナビURL,メモ,最終更新日'
         HEADER_BASE = '注文ID,注文日時,氏(請求先),名(請求先),郵便番号(請求先),都道府県(請求先),住所(請求先),住所2(請求先),電話番号(請求先),メールアドレス(請求先),氏(配送先),名(配送先),郵便番号(配送先),都道府県(配送先),住所(配送先),住所2(配送先),電話番号(配送先),備考,商品名,バリエーション,価格,税率,数量,合計金額,送料,支払い方法,代引き手数料,発送状況,商品ID,種類ID,購入元,配送日,配送時間帯,注文メモ,調整金額'
         HEADER_MANUAL_INPUT = '注文ID,住所0,住所1,氏名,電話番号,商品,メモ'
 
@@ -261,7 +266,8 @@ class Util :
                 print ('DETECTED : CSV for minne')
                 return Util.Order.Format.MINNE
             elif (Util.Csv.HEADER_CREEMA_0 in header or
-                  Util.Csv.HEADER_CREEMA_1 in header) :
+                  Util.Csv.HEADER_CREEMA_1 in header or
+                  Util.Csv.HEADER_CREEMA_2 in header) :
                 print ('DETECTED : CSV for Creema')
                 return Util.Order.Format.CREEMA
             elif (Util.Csv.HEADER_BASE in header) :
@@ -275,6 +281,9 @@ class Util :
                 return Util.Order.Format.PRINTING_LABELS
             else :
                 print ('DETECTED : UNKNOWN')
+                print ('-- HEADER --')
+                print (header)
+                print ('------------')
                 return Util.Order.Format.OTHER
 
 
