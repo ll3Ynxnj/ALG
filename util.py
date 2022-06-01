@@ -17,6 +17,7 @@ class Util :
             'HD' : 'G',
             'TH' : 'G',
             'WC' : 'G',
+            'WCC' : 'G',
             'WCS' : 'G',
             'WCP' : 'G',
             'WCT' : 'G',
@@ -43,10 +44,12 @@ class Util :
             'ST' : 'GT',
             'LB' : 'G',
             'LQ' : 'GH',
+            'AD' : 'GH',
             'WT' : 'GH',
             'FWT' : 'GH',
             'FSQ' : 'GH',
             'HFWT' : 'GH',
+            'HC' : 'G',
             'DZA' : 'G',    #旧JA
             'DZS' : 'G',    #旧JS
             'DZT' : 'G',
@@ -76,6 +79,7 @@ class Util :
             'R:ST' : '==ERROR==',
             'R:GO' : '==ERROR==',
             'R:ZR2' : '==ERROR==',
+            'R:FOW' : '==ERROR==',
             '00' : '0',
         }
 
@@ -90,6 +94,7 @@ class Util :
             'HD',
             'TH',
             'WC',
+            'WCC',  # Wired Circle Crystal
             'WCS',
             'WCP',
             'WCT',
@@ -116,12 +121,14 @@ class Util :
             'ST',   # Swarovski 淡水パール(T)
             'LB',
             'LQ',
+            'AD',   # Amazonite Drop
             'WT',
             'FWT',
             'FSQ',  # Framed Smoky Quartz
             'HFWT',
-            'DZA',  # Drop Zirconia Amazonite #'JA',
-            'DZS',  # Drop Zirconia Swarovski #'JS',
+            'HC',   # Hoop Circle
+            'DZA',  # Drop Zirconia Amazonite #'JA'
+            'DZS',  # Drop Zirconia Swarovski #'JS'
             'DZT',  # Drop Zirconia 淡水パール(T)
             'CM',
             'FLA',
@@ -149,6 +156,7 @@ class Util :
             'R:ST',
             'R:GO', # Green Onikis
             'R:ZR2', # Zirconia Round 2mm
+            'R:FOW', # Framed Oval Wave
             '00',
         ]
 
