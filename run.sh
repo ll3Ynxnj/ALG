@@ -3,7 +3,7 @@
 export LC_CTYPE=ja_JP.UTF-8
 
 # Load configuration
-. /usr/local/etc/alg.conf
+. /usr/local/etc/asc.conf
 
 # Options
 FLG_PRINT=FALSE
