@@ -277,15 +277,25 @@ row['氏(配送先)'] + ' ' + row['名(配送先)'])
         ## 一覧を出力
         productList = '-LIST-PRODUCT\n\n'
         totalNumberOfItems = 0;
+        totalCost = 0;
         for category in sortedCategories.items() :
-            productList += '- {} -----------\n'.format(category[0].ljust(4))
+            productList += '- {} ------------------\n'.format(category[0].ljust(4))
             for orders in sorted(category[1].values()) :
                 for order in orders :
-                    productList += '   {} : {}\n'.format(order[0].ljust(10), str(order[1]).rjust(2))
+                    unit = 0
+                    if order[0] in Util.Order.BASE_PRODUCTION_COST :
+                        unit = Util.Order.BASE_PRODUCTION_COST[order[0]]
+                    else :
+                        continue
+                    cost = order[1] * unit
+                    totalCost += cost
+                    productList += '   {} : {} : {}\n'.format(order[0].ljust(10),
+                                                              str(order[1]).rjust(2),
+                                                              str(cost).rjust(6))
                     totalNumberOfItems += order[1]
             productList += '\n'
 
-        productList += 'TOTAL : ' + str(totalNumberOfItems)
+        productList += 'TOTAL : ' + str(totalNumberOfItems) + ' : ' + str(totalCost) + '\n'
         print(productList)
 
         dateTimeNow = datetime.now()
