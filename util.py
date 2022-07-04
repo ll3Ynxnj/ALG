@@ -32,7 +32,7 @@ class Util :
             'ST4' : 'GT',   #旧JT
             'KP' : 'G',
             'SP' : 'G',
-	    'SS' : 'G',
+    	    'SS' : 'G',
             'SPDI' : 'G',
             'KD' : 'G',
             'FC' : 'G',
