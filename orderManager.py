@@ -25,16 +25,17 @@ class OrderManager :
             dbg_row = 0
             for row in csvDict :
                 #print (row)
-                colOrderStatus = row['注文状況']
-                print ("STATUS : " + colOrderStatus)
-                if   aItemStatus == Util.Order.ItemStatus.WAITING_FOR_SHIPPING :
-                    if colOrderStatus != '発送準備中' :
-                        print ('minne 除外 (' + colOrderStatus + ')')
-                        continue
-                elif aItemStatus == Util.Order.ItemStatus.SHIPPED :
-                    if colOrderStatus != '発送完了' :
-                        print ('minne 除外 (' + colOrderStatus + ')')
-                        continue
+                if 0 :
+                    colOrderStatus = row['注文状況']
+                    print ("STATUS : " + colOrderStatus)
+                    if   aItemStatus == Util.Order.ItemStatus.WAITING_FOR_SHIPPING :
+                        if colOrderStatus != '発送準備中' :
+                            print ('minne 除外 (' + colOrderStatus + ')')
+                            continue
+                    elif aItemStatus == Util.Order.ItemStatus.SHIPPED :
+                        if colOrderStatus != '発送完了' :
+                            print ('minne 除外 (' + colOrderStatus + ')')
+                            continue
 
                 orderIdentifier = row['注文ID']
 
@@ -74,37 +75,57 @@ class OrderManager :
             dbg_row = 0
             for row in csvDict :
                 #print (row)
-                colOrderStatus = row['ステータス']
-                print ("STATUS : " + colOrderStatus)
-                if   aItemStatus == Util.Order.ItemStatus.WAITING_FOR_SHIPPING :
-                    if colOrderStatus != '発送準備' :
-                        print ('Creema 除外 (' + colOrderStatus + ')')
-                        continue
-                elif aItemStatus == Util.Order.ItemStatus.SHIPPED :
-                    if colOrderStatus != '発送完了' :
-                        print ('Creema 除外 (' + colOrderStatus + ')')
-                        continue
+                # 注文状況による除外
+                if 0 :
+                    colOrderStatus = row['ステータス']
+                    print ("STATUS : " + colOrderStatus)
+                    if   aItemStatus == Util.Order.ItemStatus.WAITING_FOR_SHIPPING :
+                        if colOrderStatus != '発送準備' :
+                            print ('Creema 除外 (' + colOrderStatus + ')')
+                            continue
+                    elif aItemStatus == Util.Order.ItemStatus.SHIPPED :
+                        if colOrderStatus != '発送完了' :
+                            print ('Creema 除外 (' + colOrderStatus + ')')
+                            continue
 
-                orderIdentifier = row['注文ID']
-                ## 注文を追加（既に存在する注文は纏める）
+                if 0 :
+                    orderIdentifier = row['注文ID']
+                    ## 注文を追加（既に存在する注文は纏める）
+                else :
+                    orderIdentifier = '0'
                 isExist = orderIdentifier in self.orders.keys()
                 if (isExist) :
                     ## ２件目以降の注文の場合は１件目で作成したオブジェクトを取得
                     orderItem = self.orders[orderIdentifier]
                 else :
+                    strStatus = ''
+                    if 0 :
+                        strStatus = row['ステータス']
+                    strPostalCode = ''
+                    if 0 :
+                        strPostalCode = row['郵便番号']
+                    strAddress = ''
+                    if 0 :
+                        strAddress = row['住所']
+                    strName = ''
+                    if 0 :
+                        strName = row['名前']
+
+
                     ## １件目の注文の場合はOrderItemを作成
-                    postalCode = re.sub('[^0-9\-]', '', row['郵便番号'])
+                    postalCode = re.sub('[^0-9\-]', '', strPostalCode)
                     orderItem = OrderItem(orderIdentifier,
-                                          Util.Order.getStatus(row['ステータス']),
+                                          Util.Order.getStatus(strStatus),
                                           '〒' + postalCode,
-                                          row['住所'],
-                                          row['氏名'])
+                                          strAddress,
+                                          strName)
                     self.orders[orderIdentifier] = orderItem
 
                 productString = row['作品タイトル'] + row['オプション1'] + row['オプション2']
                 ## Creemaのギフトラッピングはコードを振れないので「あり」の文字列を探して存在すれば追加
-                if 'あり' in row['ギフトラッピング'] :
-                    productString += '-[W]'
+                if 0 :
+                    if 'あり' in row['ギフトラッピング'] :
+                        productString += '-[W]'
 
                 ## 商品名から商品コードを抽出してOrderItemに追加
                 print(aFilename + ' : row ' + str(dbg_row))
