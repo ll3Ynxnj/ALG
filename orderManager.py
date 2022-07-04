@@ -191,7 +191,7 @@ row['氏(配送先)'] + ' ' + row['名(配送先)'])
 
     ## 注文を追加（Manual Input)
     def addOrderWithFileForManualInput(self, aFilename) :
-        print('CALLED : addOrderWithFileForMinne()')
+        print('CALLED : addOrderWithFileForManualInput()')
         with open(aFilename, 'r', encoding='utf-8') as filedata :
             print ("OPENED : " + aFilename)
             csvDict = csv.DictReader(filedata)
@@ -349,3 +349,4 @@ class OrderItem :
     def addProduct(self, aProduct) :
         print ("CALLED : addProduct(" + aProduct + ")");
         self.products.append(aProduct)
+
