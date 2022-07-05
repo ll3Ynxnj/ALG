@@ -10,6 +10,7 @@ class Util :
         DEFAULT_OPTIONS = {
             'PK' : 'G',
             'PS' : 'G',
+            'PP' : 'G',
             'PSRE' : 'G',
             'PSDI' : 'G',
             'PSDR' : 'G',
@@ -87,6 +88,7 @@ class Util :
         CATEGORY_ORDER = [
             'PK',
             'PS',
+            'PP', # Pearl Pearl
             'PSRE',
             'PSDI',
             'PSDR',
