@@ -77,6 +77,7 @@ class Util :
             'N:LB' : 'G40',
             'N:MG' : 'G40',
             'N:WT' : 'G40',
+            'N:SK3' : 'G45',
             'R:ST' : '==ERROR==',
             'R:GO' : '==ERROR==',
             'R:ZR2' : '==ERROR==',
@@ -155,6 +156,7 @@ class Util :
             'N:LB',
             'N:MG',
             'N:WT',
+            'N:SK3', # Stick Crystal 3
             'R:ST',
             'R:GO', # Green Onikis
             'R:ZR2', # Zirconia Round 2mm
