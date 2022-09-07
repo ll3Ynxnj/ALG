@@ -16,6 +16,7 @@ class Util :
             'PSDR' : 'G',
             'PSLO' : 'G',
             'HD' : 'G',
+            'HS' : 'G',
             'TH' : 'G',
             'WC' : 'G',
             'WCC' : 'G',
@@ -82,6 +83,7 @@ class Util :
             'R:GO' : '==ERROR==',
             'R:ZR2' : '==ERROR==',
             'R:FOW' : '==ERROR==',
+            'B:CD' : '==ERROR==',
             '00' : '0',
         }
 
@@ -89,15 +91,16 @@ class Util :
         CATEGORY_ORDER = [
             'PK',
             'PS',
-            'PP', # Pearl Pearl
+            'PP',    # Pearl Pearl
             'PSRE',
             'PSDI',
             'PSDR',
             'PSLO',
-            'HD',
+            'HD',    # Herkimer-Diamond Drop (WDHが望ましい)
+            'HS',    # Herkimer-Diamond Stick (WSHが望ましい）
             'TH',
             'WC',
-            'WCC',  # Wired Circle Crystal
+            'WCC',   # Wired Circle Crystal
             'WCS',
             'WCP',
             'WCT',
@@ -107,32 +110,32 @@ class Util :
             'OT3',
             'OLA',
             'OTA',
-            'OZF',  # One Zirconia Flower
-            'SM',   # Swarovski #'JM',
-            'ST4',  # Swarovski 淡水パール(T) 4連 #'JT',
+            'OZF',   # One Zirconia Flower
+            'SM',    # Swarovski #'JM',
+            'ST4',   # Swarovski 淡水パール(T) 4連 #'JT',
             'KP',
             'KD',
             'SP',
-            'SS',   # Swarovski Swarovski
+            'SS',    # Swarovski Swarovski
             'SPDI',
             'FC',
-            'ZF',   # Zirconia Flower #'JF',
+            'ZF',    # Zirconia Flower #'JF',
             'PD',
             'PC',
             'VS',
             'VB',
-            'ST',   # Swarovski 淡水パール(T)
+            'ST',    # Swarovski 淡水パール(T)
             'LB',
             'LQ',
-            'AD',   # Amazonite Drop
+            'AD',    # Amazonite Drop
             'WT',
             'FWT',
-            'FSQ',  # Framed Smoky Quartz
+            'FSQ',   # Framed Smoky Quartz
             'HFWT',
-            'HC',   # Hoop Circle
-            'DZA',  # Drop Zirconia Amazonite #'JA'
-            'DZS',  # Drop Zirconia Swarovski #'JS'
-            'DZT',  # Drop Zirconia 淡水パール(T)
+            'HC',    # Hoop Circle
+            'DZA',   # Drop Zirconia Amazonite #'JA'
+            'DZS',   # Drop Zirconia Swarovski #'JS'
+            'DZT',   # Drop Zirconia 淡水パール(T)
             'CM',
             'FLA',
             'FTA',
@@ -145,7 +148,7 @@ class Util :
             'SCP',
             'SK3',
             'OST',
-            'OD',  # One Designe (<-?)
+            'OD',    # One Designe (<-?)
             'WCG',
             'WCA',
             'GA4',
@@ -158,9 +161,10 @@ class Util :
             'N:WT',
             'N:SK3', # Stick Crystal 3
             'R:ST',
-            'R:GO', # Green Onikis
+            'R:GO',  # Green Onikis
             'R:ZR2', # Zirconia Round 2mm
             'R:FOW', # Framed Oval Wave
+            'B:CD',  # Chain Dot
             '00',
         ]
 
