@@ -83,6 +83,7 @@ class Util :
             'R:GO' : '==ERROR==',
             'R:ZR2' : '==ERROR==',
             'R:FOW' : '==ERROR==',
+            'R:TIE' : '==ERROR==',
             'B:CD' : '==ERROR==',
             '00' : '0',
         }
@@ -164,6 +165,7 @@ class Util :
             'R:GO',  # Green Onikis
             'R:ZR2', # Zirconia Round 2mm
             'R:FOW', # Framed Oval Wave
+            'R:TIE', # Tie
             'B:CD',  # Chain Dot
             '00',
         ]
