@@ -256,6 +256,9 @@ class Util :
             'WCT-S' : 550,
             'WCT-SN' : 650,
             'WCT-SB' : 550,                
+            'WCA' : 450, # WC 
+            'WCG' : 450, # WC
+            'WCC' : 450, # WC
         }
 
 
