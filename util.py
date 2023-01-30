@@ -26,6 +26,7 @@ class Util :
             'WD' : 'G',
             'WDS' : 'G',
             'OP' : 'G',
+            'OFG' : 'G',    # One Framed Garnet
             'OT3' : 'GS',
             'OLA' : 'T',
             'OTA' : 'T',
@@ -108,6 +109,7 @@ class Util :
             'WD',
             'WDS',
             'OP',
+            'OFG',   # One Framed Garnet
             'OT3',
             'OLA',
             'OTA',
