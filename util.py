@@ -66,6 +66,7 @@ class Util :
             'SCS' : 'G',
             'SCP' : 'G',
             'SK3' : 'G',
+            'UK'  : 'G',
             'OST' : 'G',
             'OD' : 'S',
             'ST3' : 'S',
@@ -149,7 +150,8 @@ class Util :
             'PB',
             'SCS',
             'SCP',
-            'SK3',
+            'SK3',   # Stick K(C)rystal 3
+            'UK',    # U K(C)rystal
             'OST',
             'OD',    # One Designe (<-?)
             'WCG',
@@ -162,7 +164,7 @@ class Util :
             'N:LB',
             'N:MG',
             'N:WT',
-            'N:SK3', # Stick Crystal 3
+            'N:SK3', # Stick K(C)rystal 3
             'R:ST',
             'R:GO',  # Green Onikis
             'R:ZR2', # Zirconia Round 2mm
