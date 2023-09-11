@@ -35,7 +35,7 @@ class Util :
             'ST4' : 'GT',   #旧JT
             'KP' : 'G',
             'SP' : 'G',
-	    'SS' : 'G',
+            'SS' : 'G',
             'SPDI' : 'G',
             'KD' : 'G',
             'FC' : 'G',
@@ -174,6 +174,23 @@ class Util :
             '00',
         ]
 
+        ## 文字列・オプションコード変換テーブル
+        # Shopifyで使用（オプションコードをメニュー文字列に埋め込む必要がなくなる）
+        OPTION_NAMES = {
+            # 'ピアス': '',
+            '樹脂ピアス': 'J',
+            'イヤリング': 'N',
+            'フックピアス': 'H',
+            'ピアス・ベル': 'B',
+
+            'ゴールド': 'G',
+            'シルバー': 'S',
+            'ローズゴールド': 'G',
+
+            # '無料ラッピング': '',
+            '有料ラッピング（280円）': 'W',
+        }
+
 
         ## 注文データ種別コード
         class Format(Enum) :
@@ -181,6 +198,7 @@ class Util :
             MINNE = 1
             CREEMA = 2
             BASE = 3
+            SHOPIFY = 4
             MANUAL_INPUT = 64
             PRINTING_LABELS = 256 
 
@@ -207,6 +225,7 @@ class Util :
         ## 種別コードからデフォルトコードを取得
         @staticmethod
         def getDefaultCode(aCategoryCode) :
+            print("aCategoryCode: " + aCategoryCode)
             return aCategoryCode + '-' + Util.Order.DEFAULT_OPTIONS[aCategoryCode]
 
 
@@ -217,6 +236,18 @@ class Util :
             if (i == -1) :
                 i = len(aProductCode)
             return aProductCode[0:i]
+
+
+        ## 文字列をオプションコードを含む内容に変換
+        @staticmethod
+        def convertProductString(aString) :
+            convertedString = aString
+            print ('CALLED : convertProductString({})'.format(aString))
+            for key, value in Util.Order.OPTION_NAMES.items() :
+                convertedString = convertedString.replace(' ' + key + ' ',
+                                                          '[' + value + ']')
+            return convertedString
+
 
 
         ## 文字列から商品コードを取得
@@ -252,7 +283,6 @@ class Util :
             ## デフォルト値の場合はオプションを削除
             categoryCode = Util.Order.getCategoryCode(productCode)
             defaultCode = Util.Order.getDefaultCode(categoryCode)
-            print ('defaultCode : ' + defaultCode)
             if defaultCode in productCode :
                 productCode = productCode.replace(defaultCode, '')
                 if productCode :
@@ -273,6 +303,7 @@ class Util :
         HEADER_CREEMA_1 = '注文ID,購入日,ステータス,支払い日,発送予定日,発送日,作品タイトル,作品単価,オプション1,オプション1価格,オプション2,オプション2価格,作品価格,数量,ギフトラッピング,備考,取引相手,購入回数,配送方法,配送料,作品合計,送料・ラッピング,(-)作家クーポン,合計金額,(-)お買い物券・ポイント・キャンペーン分,ご注文金額,氏名,郵便番号,住所,TEL,ナビURL,メモ,最終更新日'
         HEADER_CREEMA_2 = '注文ID,購入日,ステータス,支払い日,発送予定日,発送日,作品タイトル,種類,作品単価,オプション1,オプション1価格,オプション2,オプション2価格,オプション3,オプション3価格,オプション4,オプション4価格,オプション5,オプション5価格,作品価格,数量,ギフトラッピング,備考,取引相手,購入回数,配送方法,配送料,作品合計,送料・ラッピング,(-)作家クーポン,合計金額,(-)お買い物券・ポイント・キャンペーン分,ご注文金額,氏名,郵便番号,住所,TEL,ナビURL,メモ,最終更新日'
         HEADER_BASE = '注文ID,注文日時,氏(請求先),名(請求先),郵便番号(請求先),都道府県(請求先),住所(請求先),住所2(請求先),電話番号(請求先),メールアドレス(請求先),氏(配送先),名(配送先),郵便番号(配送先),都道府県(配送先),住所(配送先),住所2(配送先),電話番号(配送先),備考,商品名,バリエーション,価格,税率,数量,合計金額,送料,支払い方法,代引き手数料,発送状況,商品ID,種類ID,購入元,配送日,配送時間帯,注文メモ,調整金額'
+        HEADER_SHOPIFY = 'Name,Email,Financial Status,Paid at,Fulfillment Status,Fulfilled at,Accepts Marketing,Currency,Subtotal,Shipping,Taxes,Total,Discount Code,Discount Amount,Shipping Method,Created at,Lineitem quantity,Lineitem name,Lineitem price,Lineitem compare at price,Lineitem sku,Lineitem requires shipping,Lineitem taxable,Lineitem fulfillment status,Billing Name,Billing Street,Billing Address1,Billing Address2,Billing Company,Billing City,Billing Zip,Billing Province,Billing Country,Billing Phone,Shipping Name,Shipping Street,Shipping Address1,Shipping Address2,Shipping Company,Shipping City,Shipping Zip,Shipping Province,Shipping Country,Shipping Phone,Notes,Note Attributes,Cancelled at,Payment Method,Payment Reference,Refunded Amount,Vendor,Id,Tags,Risk Level,Source,Lineitem discount,Tax 1 Name,Tax 1 Value,Tax 2 Name,Tax 2 Value,Tax 3 Name,Tax 3 Value,Tax 4 Name,Tax 4 Value,Tax 5 Name,Tax 5 Value,Phone,Receipt Number,Duties,Billing Province Name,Shipping Province Name,Payment ID,Payment Terms Name,Next Payment Due At,Payment References'
         HEADER_MANUAL_INPUT = '注文ID,住所0,住所1,氏名,電話番号,商品,メモ'
 
         HEADER_PRINTING_LABELS = 'ラベルID,宛先0,宛先1,宛名,商品,差出人,メモ'
@@ -295,6 +326,9 @@ class Util :
             elif (Util.Csv.HEADER_BASE in header) :
                 print ('DETECTED : CSV for BASE')
                 return Util.Order.Format.BASE
+            elif (Util.Csv.HEADER_SHOPIFY in header) :
+                print ('DETECTED : CSV for SHOPIFY')
+                return Util.Order.Format.SHOPIFY
             elif (header == Util.Csv.HEADER_MANUAL_INPUT) :
                 print ('DETECTED : CSV for manual input')
                 return Util.Order.Format.MANUAL_INPUT

@@ -34,6 +34,9 @@ for filename in fileList :
             orderManager.addOrderWithFileForCreema(filename, itemStatus)
         elif csvDictFormat == Util.Order.Format.BASE :
             orderManager.addOrderWithFileForBase(filename, itemStatus)
+        elif csvDictFormat == Util.Order.Format.SHOPIFY :
+            print("filename:" + filename)
+            orderManager.addOrderWithFileForShopify(filename, itemStatus)
         elif csvDictFormat == Util.Order.Format.MANUAL_INPUT :
             orderManager.addOrderWithFileForManualInput(filename)
         elif csvDictFormat == Util.Order.Format.PRINTING_LABELS :

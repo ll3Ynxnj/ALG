@@ -2,6 +2,7 @@
 
 import os
 import re
+import sys
 import csv
 import pprint
 import collections
@@ -166,6 +167,60 @@ row['氏(配送先)'] + ' ' + row['名(配送先)'])
 
                 ++dbg_row
 
+
+    ## 注文を追加（Shopify）
+    def addOrderWithFileForShopify(self, aFilename, aItemStatus) :
+        print('CALLED : addOrderWithFileForShopify()')
+        with open(aFilename, 'r', encoding='utf-8-sig') as filedata :
+            print ("OPENED : " + aFilename)
+            csvDict = csv.DictReader(filedata)
+            dbg_row = 0
+            for row in csvDict :
+                # print(row)
+                colOrderStatus = row['Fulfillment Status']
+                print ("STATUS : " + colOrderStatus)
+                if   aItemStatus == Util.Order.ItemStatus.WAITING_FOR_SHIPPING :
+                    if colOrderStatus != 'unfulfilled' : # 未発送
+                        print ('Shopify 除外 (' + colOrderStatus + ')')
+                        continue
+                elif aItemStatus == Util.Order.ItemStatus.SHIPPED :
+                    if colOrderStatus != 'fulfilled'   : # 発送済
+                        print ('Shopify 除外 (' + colOrderStatus + ')')
+                        continue
+
+                orderIdentifier = row['Name']
+                ## 注文を追加（既に存在する注文は纏める）
+                isExist = orderIdentifier in self.orders.keys()
+                if (isExist) :
+                    ## ２件目以降の注文の場合は１件目で作成したオブジェクトを取得
+                    orderItem = self.orders[orderIdentifier]
+                else :
+                    ## １件目の注文の場合はOrderItemを作成
+                    postalCode = re.sub('[^0-9\-]', '', row['Shipping Zip'])
+                    orderItem = OrderItem(orderIdentifier,
+                                          Util.Order.getStatus(row['Fulfillment Status']),
+                                          '〒' + postalCode,
+                                          row['Shipping Province Name'] + row['Shipping City'] + row['Shipping Street'],
+                                          row['Shipping Company'] + ' ' + row['Shipping Name'])
+                    self.orders[orderIdentifier] = orderItem
+                productString = row['Lineitem name']
+                matches = re.findall('\[[a-zA-Z0-9\-:]*\]', productString)
+
+                if not matches:
+                    raise ValueError("文字列「" + productString + "」から商品コードをみつけられませんでした")
+
+                ## Shopifyでは選択肢にオプションコードを含まない運用にしたためここで特定文字列をオプションコードに変更する
+                productString = Util.Order.convertProductString(productString)
+                print("productString: ", productString)
+
+                ## 商品名から商品コードを抽出してOrderItemに追加
+                print(aFilename + ' : row ' + str(dbg_row))
+                productCode = Util.Order.getProductCode(productString)
+
+                for i in range(int(row['Lineitem quantity'])) :
+                    orderItem.addProduct(productCode)
+
+                ++dbg_row
 
 
     ## 注文を追加（Manual Input)
