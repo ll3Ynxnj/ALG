@@ -56,6 +56,7 @@ class Util :
             'DZA' : 'G',    #旧JA
             'DZS' : 'G',    #旧JS
             'DZT' : 'G',
+            'CDK' : 'G',
             'CM' : 'GH',
             'FLA' : 'GH',
             'FTA' : 'GH',
@@ -140,6 +141,7 @@ class Util :
             'DZA',   # Drop Zirconia Amazonite #'JA'
             'DZS',   # Drop Zirconia Swarovski #'JS'
             'DZT',   # Drop Zirconia 淡水パール(T)
+            'CDK',   # Circle Drop K(C)rystal
             'CM',
             'FLA',
             'FTA',
