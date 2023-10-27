@@ -23,6 +23,7 @@ class Util :
             'WCS' : 'G',
             'WCP' : 'G',
             'WCT' : 'G',
+            'WCCM' : 'G',
             'WD' : 'G',
             'WDS' : 'G',
             'OP' : 'G',
@@ -109,6 +110,7 @@ class Util :
             'WCS',
             'WCP',
             'WCT',
+	    'WCCM',  # Wired Circle Citrine Malon
             'WD',
             'WDS',
             'OP',
