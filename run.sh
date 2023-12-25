@@ -66,9 +66,9 @@ lpstat -s
 lpoptions -p ${VAL_PRINTER_NAME} -l
 
 # Print label
-#if $FLG_PRINT ; then
+if $FLG_PRINT ; then
   ls Labels/*.pdf | xargs lpr -o landscape -P ${ALG_PRINTER_NAME}
-#fi
+fi
 
 # Output data
 cp ./OrderLists/* ${ALG_PATH_TO_IO}
