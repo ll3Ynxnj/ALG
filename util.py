@@ -41,6 +41,7 @@ class Util :
             'KD' : 'G',
             'FC' : 'G',
             'ZF' : 'GH',    #旧JF
+            'ZG' : 'G',
             'PD' : 'G',
             'PC' : 'G',
             'VS' : 'GH',
@@ -69,6 +70,7 @@ class Util :
             'SCS' : 'G',
             'SCP' : 'G',
             'SK3' : 'G',
+	    'PDZ' : 'G',
             'UK'  : 'G',
             'OST' : 'G',
             'OD' : 'S',
@@ -83,6 +85,7 @@ class Util :
             'N:LB' : 'G40',
             'N:MG' : 'G40',
             'N:WT' : 'G40',
+            'N:CR' : 'G40', # Circle Ring
             'N:SK3' : 'G45',
             'R:ST' : '==ERROR==',
             'R:GO' : '==ERROR==',
@@ -128,6 +131,7 @@ class Util :
             'SPDI',
             'FC',
             'ZF',    # Zirconia Flower #'JF',
+            'ZG',    # Zirconia Gypsophila
             'PD',
             'PC',
             'VS',
@@ -157,6 +161,7 @@ class Util :
             'SCS',
             'SCP',
             'SK3',   # Stick K(C)rystal 3
+            'PDZ',   # Parl Drop Zirconia
             'UK',    # U K(C)rystal
             'OST',
             'OD',    # One Designe (<-?)
@@ -170,6 +175,7 @@ class Util :
             'N:LB',
             'N:MG',
             'N:WT',
+            'N:CR', # Circle Ring
             'N:SK3', # Stick K(C)rystal 3
             'R:ST',
             'R:GO',  # Green Onikis
