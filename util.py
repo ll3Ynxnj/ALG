@@ -23,6 +23,7 @@ class Util :
             'WCS' : 'G',
             'WCP' : 'G',
             'WCT' : 'G',
+            'WCCM' : 'G',
             'WD' : 'G',
             'WDS' : 'G',
             'OP' : 'G',
@@ -56,6 +57,8 @@ class Util :
             'DZA' : 'G',    #旧JA
             'DZS' : 'G',    #旧JS
             'DZT' : 'G',
+            'DZM' : 'G',
+            'CDK' : 'G',
             'CM' : 'GH',
             'FLA' : 'GH',
             'FTA' : 'GH',
@@ -107,6 +110,7 @@ class Util :
             'WCS',
             'WCP',
             'WCT',
+	    'WCCM',  # Wired Circle Citrine Malon
             'WD',
             'WDS',
             'OP',
@@ -137,9 +141,11 @@ class Util :
             'FSQ',   # Framed Smoky Quartz
             'HFWT',
             'HC',    # Hoop Circle
-            'DZA',   # Drop Zirconia Amazonite #'JA'
-            'DZS',   # Drop Zirconia Swarovski #'JS'
-            'DZT',   # Drop Zirconia 淡水パール(T)
+            'DZA',   # Drop(Designed) Zirconia Amazonite #'JA'
+            'DZS',   # Drop(Designed) Zirconia Swarovski #'JS'
+            'DZT',   # Drop(Designed) Zirconia 淡水パール(T)
+            'DZM',   # Drop(Designed) Zirconia Moonstone
+            'CDK',   # Circle Drop K(C)rystal
             'CM',
             'FLA',
             'FTA',
