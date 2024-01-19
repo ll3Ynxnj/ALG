@@ -42,6 +42,7 @@ class Util :
             'FC' : 'G',
             'ZF' : 'GH',    #旧JF
             'ZG' : 'G',
+	    'TZP': 'G',
             'PD' : 'G',
             'PC' : 'G',
             'VS' : 'GH',
@@ -132,6 +133,7 @@ class Util :
             'FC',
             'ZF',    # Zirconia Flower #'JF',
             'ZG',    # Zirconia Gypsophila
+            'TZP',   # 淡水パール(T) Zirconia Planets
             'PD',
             'PC',
             'VS',
