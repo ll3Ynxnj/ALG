@@ -61,6 +61,7 @@ class Util :
             'DZT' : 'G',
             'DZM' : 'G',
             'CDK' : 'G',
+            'CKT' : 'G',
             'CM' : 'GH',
             'FLA' : 'GH',
             'FTA' : 'GH',
@@ -93,6 +94,7 @@ class Util :
             'R:ZR2' : '==ERROR==',
             'R:FOW' : '==ERROR==',
             'R:TIE' : '==ERROR==',
+	    'R:MCT' : '==ERROR==',
             'B:CD' : '==ERROR==',
             '00' : '0',
         }
@@ -152,6 +154,7 @@ class Util :
             'DZT',   # Drop(Designed) Zirconia 淡水パール(T)
             'DZM',   # Drop(Designed) Zirconia Moonstone
             'CDK',   # Circle Drop K(C)rystal
+            'CKT',   # Chain K(C)rystal Tumble
             'CM',
             'FLA',
             'FTA',
@@ -184,6 +187,7 @@ class Util :
             'R:ZR2', # Zirconia Round 2mm
             'R:FOW', # Framed Oval Wave
             'R:TIE', # Tie
+	    'R:MCT', # Metal Circlt ??
             'B:CD',  # Chain Dot
             '00',
         ]
