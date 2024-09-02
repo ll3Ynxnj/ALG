@@ -94,7 +94,7 @@ class Util :
             'R:ZR2' : '==ERROR==',
             'R:FOW' : '==ERROR==',
             'R:TIE' : '==ERROR==',
-	    'R:MCT' : '==ERROR==',
+	    'R:MTC' : '==ERROR==',
             'B:CD' : '==ERROR==',
             '00' : '0',
         }
@@ -187,7 +187,7 @@ class Util :
             'R:ZR2', # Zirconia Round 2mm
             'R:FOW', # Framed Oval Wave
             'R:TIE', # Tie
-	    'R:MCT', # Metal Circlt ??
+	    'R:MTC', # Metal? ?? Circlt?
             'B:CD',  # Chain Dot
             '00',
         ]
