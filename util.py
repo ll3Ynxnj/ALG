@@ -29,6 +29,7 @@ class Util :
             'OP' : 'G',
             'OFG' : 'G',    # One Framed Garnet
             'OT3' : 'GS',
+	    'OL3' : 'GS',
             'OLA' : 'T',
             'OTA' : 'T',
             'OZF' : 'G',    # One Zirconia Flower
@@ -75,6 +76,7 @@ class Util :
 	    'PDZ' : 'G',
             'UK'  : 'G',
             'OST' : 'G',
+	    'OHE' : 'G',
             'OD' : 'S',
             'ST3' : 'S',
             'WCG' : 'G',
@@ -122,6 +124,7 @@ class Util :
             'OP',
             'OFG',   # One Framed Garnet
             'OT3',
+	    'OL3',
             'OLA',
             'OTA',
             'OZF',   # One Zirconia Flower
@@ -169,6 +172,7 @@ class Util :
             'PDZ',   # Parl Drop Zirconia
             'UK',    # U K(C)rystal
             'OST',
+	    'OHE',
             'OD',    # One Designe (<-?)
             'WCG',
             'WCA',
