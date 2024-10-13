@@ -29,6 +29,7 @@ class Util :
             'OP' : 'G',
             'OFG' : 'G',    # One Framed Garnet
             'OT3' : 'GS',
+	    'OL3' : 'GS',
             'OLA' : 'T',
             'OTA' : 'T',
             'OZF' : 'G',    # One Zirconia Flower
@@ -61,6 +62,7 @@ class Util :
             'DZT' : 'G',
             'DZM' : 'G',
             'CDK' : 'G',
+            'CKT' : 'G',
             'CM' : 'GH',
             'FLA' : 'GH',
             'FTA' : 'GH',
@@ -74,6 +76,7 @@ class Util :
 	    'PDZ' : 'G',
             'UK'  : 'G',
             'OST' : 'G',
+	    'OHE' : 'G',
             'OD' : 'S',
             'ST3' : 'S',
             'WCG' : 'G',
@@ -93,6 +96,7 @@ class Util :
             'R:ZR2' : '==ERROR==',
             'R:FOW' : '==ERROR==',
             'R:TIE' : '==ERROR==',
+	    'R:MTC' : '==ERROR==',
             'B:CD' : '==ERROR==',
             '00' : '0',
         }
@@ -120,6 +124,7 @@ class Util :
             'OP',
             'OFG',   # One Framed Garnet
             'OT3',
+	    'OL3',
             'OLA',
             'OTA',
             'OZF',   # One Zirconia Flower
@@ -152,6 +157,7 @@ class Util :
             'DZT',   # Drop(Designed) Zirconia 淡水パール(T)
             'DZM',   # Drop(Designed) Zirconia Moonstone
             'CDK',   # Circle Drop K(C)rystal
+            'CKT',   # Chain K(C)rystal Tumble
             'CM',
             'FLA',
             'FTA',
@@ -166,6 +172,7 @@ class Util :
             'PDZ',   # Parl Drop Zirconia
             'UK',    # U K(C)rystal
             'OST',
+	    'OHE',
             'OD',    # One Designe (<-?)
             'WCG',
             'WCA',
@@ -184,6 +191,7 @@ class Util :
             'R:ZR2', # Zirconia Round 2mm
             'R:FOW', # Framed Oval Wave
             'R:TIE', # Tie
+	    'R:MTC', # Metal? ?? Circlt?
             'B:CD',  # Chain Dot
             '00',
         ]

@@ -109,6 +109,8 @@ class LabelManager :
         for product in aOrderItem.products :
             products += product + ' '
         fromAddress = 'Aikiki 〒227-0038神奈川県横浜市青葉区奈良3-14-1-八-908'
+        # fromAddress = 'あおば子どもミュージカル<公演のご案内> TEL:090-3003-3465'
+        # fromAddress = aOrderItem.fromAddress
 
         item = LabelItem(identifier,
                          addressLine0,
